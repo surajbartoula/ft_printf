@@ -12,7 +12,22 @@
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(const char *format, ...)
 {
-	char *str;	
+	va_list ap;
+	int		count;
+
+	count = 0;
+	va_start(ap, format);
+	while (*format != '\0')
+	{
+		if (*format == '%')
+			count += ft_format(*(++format), ap);
+		else
+			count += write(1, format, 1);
+		++format;
+	}
+	va_end(ap);
+	return (count);
+
 }
