@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbartoul <sbartoul@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 12:28:43 by sbartoul          #+#    #+#             */
-/*   Updated: 2023/12/26 12:32:17 by sbartoul         ###   ########.fr       */
+/*   Created: 2024/01/07 18:09:20 by sbartoul          #+#    #+#             */
+/*   Updated: 2024/01/08 13:56:50 by sbartoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	print_str(char *str)
 {
-	write(fd, &c, 1);
+	int	count;
+
+	if (str == NULL)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	count = 0;
+	while (*str != '\0')
+	{
+		print_char((int)*str);
+		++count;
+		++str;
+	}
+	return (count);
 }

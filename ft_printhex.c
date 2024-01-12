@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_printhex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbartoul <sbartoul@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/22 20:17:12 by sbartoul          #+#    #+#             */
-/*   Updated: 2023/12/26 14:55:32 by sbartoul         ###   ########.fr       */
+/*   Created: 2024/01/07 19:21:05 by sbartoul          #+#    #+#             */
+/*   Updated: 2024/01/08 17:34:06 by sbartoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_atoi(const char *str)
+int	print_hex(long num, int uppercase)
 {
-	int		negative;
-	long	index;
+	int		count;
+	char	*symbols;
 
-	negative = 0;
-	index = 0;
-	while ((*str >= '\t' && *str <= '\r') || *str == ' ')
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			negative++;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		index *= 10;
-		index += *str - 48;
-		str++;
-	}
-	if (!(negative % 2))
-		return (index);
+	if (!uppercase)
+		symbols = "0123456789abcdef";
 	else
-		return (-index);
+		symbols = "0123456789ABCDEF";
+	if (num < 0)
+	{
+		print_char('-');
+		return (print_hex(-num, uppercase) + 1);
+	}
+	else if (num < 16)
+	{
+		return (print_char(symbols[num]));
+	}
+	else
+	{
+		count = print_hex((num / 16), uppercase);
+		return (count + print_hex((num % 16), uppercase));
+	}
 }
